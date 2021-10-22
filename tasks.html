@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h1{
+            margin: auto;
+            text-align: center;
+        }
+        h2{
+            margin: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        input{
+            display: block;
+            margin: auto;
+            margin-bottom: 10px;
+        }
+        .sub{
+            position: relative;
+            float: left;
+            left: 44.5%;
+            margin-right: 10px;
+        }
+        #tasks{
+            margin-left: 30px;
+            list-style: circle;
+        }
+    </style>
+    <script>
+        //Defines Task List
+        let tasks = new Array();
+        function addTask(){
+            //Defines the default text input field
+            const field = document.getElementById("task");
+            //Pushes an array forward using the field value
+            tasks.push(field.value);
+            //Creates a new list element
+            let newTask = document.getElementById("list").children[0].appendChild(document.createElement("li"));
+            newTask.className = "item";
+            //Fills the list element with the field value
+            newTask.innerHTML = field.value;
+            //Stores the current field value on the local storage using JSON
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            //Clears the field value
+            field.value = "";
+        }
+        function loadList(){
+            //Recovers tasks stored on the localStorage and converts JSON to actual values
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+            //Restores every list element stored on the local storage
+            for(i=0;i<tasks.length;i++){
+                let listedTask = document.getElementById("list").children[0].appendChild(document.createElement("li"));
+                listedTask.className = "item";
+                listedTask.innerHTML = tasks[i];
+            }
+        }
+        function clearList(){
+            localStorage.setItem('tasks', "");
+            document.getElementById("tasks").innerHTML = "";
+        }
+    </script>
+</head>
+<body onload="loadList()">
+    <h1>Task List</h1>
+    <h2>Insert a task below</h2>
+    <input type="text" id="task">
+    <input type="submit" value="Submit" onclick="addTask()" class="sub">
+    <input type="submit" value="Clear" onclick="clearList()" class="sub">
+    <div id="list">
+        <ul id="tasks">
+            
+        </ul>
+    </div>
+</body>
+</html>
