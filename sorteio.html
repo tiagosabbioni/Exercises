@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteador</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h1{
+            text-align: center;
+            font-size: large;
+            margin-bottom: 10px;
+        }
+        p{
+            margin: 10px;
+            margin-bottom: 0px;
+            text-align: center;
+            font-size: small;
+        }
+        #fields{
+            text-align: center;
+        }
+        .field{
+            margin-top: 5px;
+            width: 40px;
+            height: 10px;
+            font-size: 10px;
+        }
+        #submit-button{
+            display: block;
+            margin: auto;
+            margin-top: 10px;
+        }
+        #your-number{
+            display: none;
+            text-align: center;
+            color: black;
+        }
+        #number{
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+    <script>
+        let wasDrawn = false;
+        function draw(){
+            if(wasDrawn === false){
+                wasDrawn = true;
+                let number = document.getElementsByTagName("body")[0].appendChild(document.createElement("p"));
+                number.id = "number";
+            }
+            document.getElementById("your-number").style.display = "block";
+            let min = parseInt(document.getElementById("min").value);
+            let max = parseInt(document.getElementById("max").value);   
+            let drawnNumber = Math.random();
+
+            console.log(min);
+            console.log(max);
+            console.log(drawnNumber);
+            number.innerHTML = Math.floor(drawnNumber * (max - min + 1) + min);
+        }
+    </script>
+</head>
+<body>
+    <h1>Página de Sorteio</h1>
+    <p>Quero sortear números de: </p>
+    <div id="fields">
+        <input type="number" name="min" id="min" class="field" placeholder="Mínimo" value="0">
+        <span style="font-size: 15px;">a</span>
+        <input type="number" name="max" id="max" class="field" placeholder="Máximo" value="100">
+        <input type="submit" value="Sortear" id="submit-button" onclick="draw()">
+    </div>
+    <p id="your-number">O seu número sorteado é:</p>
+</body>
+</html>
